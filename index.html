@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080808" />
+    <meta
+      name="description"
+      content="MACHINFIT — Half Machine. Half Human. Join the early access list for the next chapter in fitness identity."
+    />
+    <title>MACHINFIT — Half Machine. Half Human.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080808;
+        --fg: #f4f3f0;
+        --muted: #9c9c9c;
+        --line: #ffffff30;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: Inter, Arial, sans-serif;
+      }
+      ::selection {
+        background: #fff;
+        color: #111;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .noise {
+        position: fixed;
+        inset: 0;
+        z-index: 8;
+        pointer-events: none;
+        opacity: 0.07;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+      }
+      .topbar {
+        height: 85px;
+        padding: 0 clamp(22px, 5vw, 90px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 5;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+      }
+      .brand img {
+        width: 160px;
+        height: 54px;
+        object-fit: contain;
+        object-position: left center;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 38px;
+      }
+      .nav a {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+      }
+      .nav .nav-cta {
+        border: 1px solid #aaa;
+        padding: 14px 20px;
+        transition: 0.2s;
+      }
+      .nav .nav-cta:hover {
+        background: white;
+        color: black;
+      }
+      .hero {
+        min-height: 780px;
+        min-height: 100svh;
+        display: grid;
+        grid-template-columns: 49% 51%;
+        position: relative;
+        overflow: hidden;
+      }
+      .photo {
+        position: relative;
+        min-height: 600px;
+        background: #151515 url("athlete.png") center 27% / cover no-repeat;
+      }
+      .photo:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, transparent 55%, #080808 100%),
+          linear-gradient(0deg, #080808bb, transparent 35%);
+      }
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 135px clamp(25px, 5vw, 95px) 100px clamp(10px, 2vw, 35px);
+        z-index: 1;
+      }
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.42em;
+        font-weight: 600;
+        color: #c1c1c1;
+        text-transform: uppercase;
+      }
+      .hero h1,
+      .section h2,
+      .final h2 {
+        font-family: "Barlow Condensed", Impact, sans-serif;
+        font-weight: 900;
+        line-height: 0.85;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        font-size: clamp(70px, 8.2vw, 152px);
+        margin: 30px 0 32px;
+        white-space: nowrap;
+      }
+      .hero h1 span {
+        display: block;
+      }
+      .hero h1 span:nth-child(2) {
+        color: #8f8f8f;
+      }
+      .intro {
+        font-size: 13px;
+        line-height: 1.9;
+        color: #b0b0b0;
+        max-width: 385px;
+        margin: 0 0 30px;
+      }
+      .signup {
+        display: flex;
+        width: min(100%, 460px);
+        height: 58px;
+        border: 1px solid #777;
+        background: #080808;
+      }
+      .signup input {
+        min-width: 0;
+        flex: 1;
+        background: transparent;
+        border: 0;
+        outline: none;
+        color: #fff;
+        padding: 0 18px;
+        font-size: 12px;
+      }
+      .signup button {
+        border: 0;
+        background: #f4f3f0;
+        color: #090909;
+        min-width: 64px;
+        font-size: 23px;
+        transition: background 0.2s;
+      }
+      .signup button:hover {
+        background: #bdbdbd;
+      }
+      .small {
+        font-size: 9px;
+        color: #9b9b9b;
+        letter-spacing: 0.11em;
+        line-height: 1.7;
+        margin: 14px 0 0;
+      }
+      .status {
+        font-size: 12px;
+        min-height: 20px;
+        margin-top: 8px;
+        color: #e4e4e4;
+      }
+      .scroll {
+        position: absolute;
+        bottom: 35px;
+        left: 5vw;
+        z-index: 2;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: #ddd;
+      }
+      .scroll:before {
+        content: "↓";
+        display: inline-flex;
+        border: 1px solid #aaa;
+        border-radius: 30px;
+        width: 20px;
+        height: 33px;
+        align-items: center;
+        justify-content: center;
+        margin-right: 14px;
+      }
+      .section {
+        border-top: 1px solid var(--line);
+        min-height: 480px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+      .story-copy {
+        padding: 85px clamp(28px, 8vw, 130px);
+      }
+      .section h2,
+      .final h2 {
+        font-size: clamp(62px, 7vw, 116px);
+        margin: 22px 0;
+      }
+      .section p:not(.eyebrow) {
+        max-width: 370px;
+        color: #b2b2b2;
+        font-size: 14px;
+        line-height: 1.85;
+      }
+      .story-img {
+        height: 100%;
+        min-height: 480px;
+        background:
+          linear-gradient(90deg, #08080866, transparent),
+          url("athlete-detail.jpg") center/cover;
+      }
+      .values {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+        border-top: 1px solid #555;
+        padding-top: 22px;
+        margin-top: 30px;
+        font-size: 9px;
+        letter-spacing: 0.17em;
+      }
+      .ticker {
+        overflow: hidden;
+        white-space: nowrap;
+        border-block: 1px solid #333;
+        padding: 17px 0;
+        color: #777;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+      }
+      .ticker span {
+        display: inline-block;
+        animation: marquee 24s linear infinite;
+      }
+      .final {
+        padding: 130px 25px;
+        text-align: center;
+        background: radial-gradient(ellipse at center, #202020, #080808 65%);
+      }
+      .final h2 {
+        font-size: clamp(85px, 12vw, 190px);
+        margin: 18px 0;
+      }
+      .final p {
+        color: #aaa;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+      }
+      .final a {
+        display: inline-flex;
+        margin-top: 24px;
+        background: #eee;
+        color: #111;
+        padding: 20px 36px;
+        font-weight: 700;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+      }
+      footer {
+        border-top: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 30px 5vw;
+        color: #aaa;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @keyframes marquee {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: 100svh;
+        }
+        .photo {
+          position: absolute;
+          inset: 0;
+          min-height: 0;
+          background-position: center 20%;
+          opacity: 0.62;
+        }
+        .photo:after {
+          background: linear-gradient(
+            0deg,
+            #080808 7%,
+            #08080850 65%,
+            #08080870
+          );
+        }
+        .hero-content {
+          padding: 180px 6vw 110px;
+          justify-content: flex-end;
+          min-height: 100svh;
+        }
+        .hero h1 {
+          font-size: clamp(70px, 15vw, 130px);
+        }
+        .nav a:not(.nav-cta) {
+          display: none;
+        }
+        .nav .nav-cta {
+          padding: 12px;
+        }
+        .topbar {
+          height: 72px;
+        }
+        .brand img {
+          width: 130px;
+        }
+        .section {
+          grid-template-columns: 1fr;
+        }
+        .story-copy {
+          padding: 75px 7vw;
+        }
+        .story-img {
+          min-height: 350px;
+        }
+        .scroll {
+          display: none;
+        }
+      }
+      @media (max-width: 450px) {
+        .hero h1 {
+          font-size: clamp(59px, 14vw, 76px);
+        }
+        .hero-content {
+          padding-bottom: 90px;
+        }
+        .intro {
+          font-size: 12px;
+        }
+        .nav .nav-cta {
+          font-size: 9px;
+        }
+        .eyebrow {
+          font-size: 9px;
+          letter-spacing: 0.3em;
+        }
+        .final {
+          padding: 90px 15px;
+        }
+        .final h2 {
+          font-size: 80px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          scroll-behavior: auto !important;
+          animation: none !important;
+          transition: none !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a href="#top" class="brand" aria-label="MACHINFIT home"
+        ><img src="logo.png" alt="MACHINFIT"
+      /></a>
+      <nav class="nav">
+        <a href="#identity">THE BRAND</a><a href="#access">EARLY ACCESS</a
+        ><a class="nav-cta" href="#access">GET EARLY ACCESS ↗</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" id="top">
+        <div class="photo" role="img" aria-label="Athlete in a dark gym"></div>
+        <div class="hero-content">
+          <div class="eyebrow reveal">MACHINFIT / THE NEXT CHAPTER</div>
+          <h1 class="reveal">
+            <span>HALF</span><span>MACHINE.</span><span>HALF HUMAN.</span>
+          </h1>
+          <p class="intro reveal">
+            Not just what you wear. It's who you become.<br />For those who
+            demand more from themselves.
+          </p>
+          <div id="access" class="reveal" style="width: 100%; max-width: 460px">
+            <form class="signup" id="signupForm">
+              <label
+                for="email"
+                style="
+                  position: absolute;
+                  width: 1px;
+                  height: 1px;
+                  overflow: hidden;
+                  clip-path: inset(50%);
+                "
+                >Email address</label
+              ><input
+                id="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Your email for early access"
+                required
+                maxlength="254"
+              /><button type="submit" aria-label="Join early access">→</button>
+            </form>
+            <p class="small">BE FIRST TO KNOW. FIRST DROP. NO SPAM.</p>
+            <div class="status" id="status" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="scroll">SCROLL TO EXPLORE</div>
+      </section>
+      <section class="section" id="identity">
+        <div class="story-copy reveal">
+          <div class="eyebrow">MORE THAN CLOTHING</div>
+          <h2>A HIGHER<br />STANDARD.</h2>
+          <p>
+            Built for the ones who show up when nobody's watching. For the
+            discipline you earn, the progress you make, and the person you
+            become.
+          </p>
+          <div class="values">
+            <span>01 / DISCIPLINE</span><span>02 / PROGRESS</span
+            ><span>03 / IDENTITY</span>
+          </div>
+        </div>
+        <div
+          class="story-img"
+          role="img"
+          aria-label="Athlete preparing to train"
+        ></div>
+      </section>
+      <div class="ticker" aria-hidden="true">
+        <span
+          >HALF MACHINE · HALF HUMAN · BUILT DIFFERENT · MACHINFIT · HALF
+          MACHINE · HALF HUMAN · BUILT DIFFERENT · MACHINFIT · &nbsp;</span
+        >
+      </div>
+      <section class="final">
+        <div class="eyebrow reveal">THE NEXT CHAPTER</div>
+        <h2 class="reveal">COMING<br />SOON.</h2>
+        <p class="reveal">IT'S NOT JUST A LAUNCH. IT'S A MOVEMENT.</p>
+        <a href="#access" class="reveal">JOIN THE FIRST DROP ↗</a>
+      </section>
+    </main>
+    <footer>
+      <span>© 2026 MACHINFIT</span><span>HALF MACHINE. HALF HUMAN.</span
+      ><a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram (update to MACHINFIT official account)"
+        >INSTAGRAM ↗</a
+      >
+    </footer>
+    <script>
+      // To activate real email collection, replace the URL below with your deployed endpoint
+      // (e.g. a Formspree form endpoint). Until then the form opens an email draft.
+      const SIGNUP_ENDPOINT = "";
+      const form = document.getElementById("signupForm"),
+        statusEl = document.getElementById("status");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value.trim();
+        if (!form.reportValidity()) return;
+        const btn = form.querySelector("button");
+        if (!SIGNUP_ENDPOINT) {
+          statusEl.textContent =
+            "Email draft opened. Send it to request access.";
+          window.location.href =
+            "mailto:hello@machinfit.com?subject=MACHINFIT%20Early%20Access&body=" +
+            encodeURIComponent(
+              "Please add " + email + " to the MACHINFIT early access list.",
+            );
+          return;
+        }
+        btn.disabled = true;
+        statusEl.textContent = "Submitting…";
+        try {
+          const res = await fetch(SIGNUP_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ email }),
+          });
+          if (!res.ok) throw new Error("Request failed");
+          statusEl.textContent = "You're on the list. Watch this space.";
+          form.reset();
+        } catch (err) {
+          statusEl.textContent = "Could not submit. Please try again.";
+        } finally {
+          btn.disabled = false;
+        }
+      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((x) => {
+            if (x.isIntersecting) {
+              x.target.classList.add("visible");
+              observer.unobserve(x.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
